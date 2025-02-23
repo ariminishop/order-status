@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>${webAppTitle}</title>
+    <title>Order-status</title>
 <style>
    body {
             width: 100%;
@@ -22,6 +22,17 @@
 </style>
 </head>
 <body>
-    <iframe src="${scriptUrl}" frameborder="0"></iframe>
+    <iframe frameborder="0"></iframe>
+    <script>
+        let script_url = "https://script.google.com/macros/s/AKfycbziZ4MANWTJUw8SP_VZWLC85jpOPrQlJ97cBtQjVTyRQVrWJXtlrT9LSLItewu7KzAV/exec"
+        let params = new URLSearchParams(window.location.search)
+        if(params.has('s')){
+            let s = params.get('s')
+            let url = `${script_url}?s=${s}`
+            document.querySelector('iframe').src = url
+        }else{
+            document.querySelector('iframe').src = script_url
+        }
+    </script>
 </body>
 </html>
