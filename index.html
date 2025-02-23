@@ -4,35 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
     <title>Order-status</title>
-<style>
-   body {
+    <style>
+        body {
             width: 100%;
             height: 100vh;
             margin: 0;
         }
-
-  iframe {
-      width: 100%;
-      height: 100%;
-      border: none
-
-  }
-</style>
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
     <iframe frameborder="0" allow="clipboard-write; clipboard-read; geolocation"></iframe>
     <script>
-        let script_url = "https://script.google.com/a/*/macros/s/AKfycbziZ4MANWTJUw8SP_VZWLC85jpOPrQlJ97cBtQjVTyRQVrWJXtlrT9LSLItewu7KzAV/exec"
-        let params = new URLSearchParams(window.location.search)
-        if(params.has('s')){
-            let s = params.get('s')
-            let url = `${script_url}?s=${s}`
-            document.querySelector('iframe').src = url
-        }else{
-            document.querySelector('iframe').src = script_url
+        let script_url = "https://script.google.com/macros/s/AKfycbziZ4MANWTJUw8SP_VZWLC85jpOPrQlJ97cBtQjVTyRQVrWJXtlrT9LSLItewu7KzAV/exec";
+        let params = new URLSearchParams(window.location.search);
+        if (params.has('s')) {
+            let s = params.get('s');
+            let url = `${script_url}?s=${s}`;
+            document.querySelector('iframe').src = url;
+        } else {
+            document.querySelector('iframe').src = script_url;
         }
+
+        fetch(script_url+'?logo=true')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    let logo = data.logo;
+                    let title = data.title;
+                    document.title = title;
+                    let link = document.createElement('link');
+                    link.rel = 'icon';
+                    link.href = logo;
+                    document.head.appendChild(link);
+                }
+            });
     </script>
 </body>
 </html>
