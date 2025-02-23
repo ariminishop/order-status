@@ -37,10 +37,12 @@
                 if (data.status === 'success') {
                     let logo = data.logo;
                     let title = data.title;
+                    let type = data.type
                     document.title = title;
                     let link = document.createElement('link');
                     link.rel = 'icon';
                     link.href = logo;
+                    link.type = 'image/'+type
                     document.head.appendChild(link);
                 }
             });
